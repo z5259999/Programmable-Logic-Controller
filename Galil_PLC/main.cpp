@@ -26,9 +26,9 @@ void clearOutputs(Galil* g) {
 
 // TODO: run "IQ 65535" before running this function
 int testingGalil() {
-	EmbeddedFunctions funcs;
-	GCStringIn addr = "192.168.0.120";
-	Galil* g = new Galil(&funcs, addr);
+	
+	EmbeddedFunctions* galil = new EmbeddedFunctions;
+	Galil* g = new Galil(galil, "192.168.0.120 -d");
 
 	clearOutputs(g);
 	assert(g->DigitalInput() == 0);
@@ -123,14 +123,13 @@ int testingGalil() {
 
 int main(){
 
-	EmbeddedFunctions* g = new EmbeddedFunctions;
-	Galil* galil = new Galil(g, "192.168.0.120 -d");
+	//EmbeddedFunctions* g = new EmbeddedFunctions;
+	//Galil* galil = new Galil(g, "192.168.0.120 -d");
+
+	testingGalil();
 
 	while (1) {
-		galil->DigitalOutput(65535);
-		Sleep(500);
-		galil->DigitalOutput(0);
-		Sleep(500);
+		
 	}
 
 	return G_NO_ERROR;
