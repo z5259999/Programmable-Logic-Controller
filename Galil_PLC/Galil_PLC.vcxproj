@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <ProjectGuid>{1E3343C6-5FB0-4032-8C7B-660A66E1D28C}</ProjectGuid>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>GalilPLC</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
@@ -116,6 +116,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Galil.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="..\lib\GalilControl_Win32_Debug.lib" />
