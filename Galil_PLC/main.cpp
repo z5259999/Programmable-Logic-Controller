@@ -11,6 +11,9 @@
 #include <assert.h>
 #include "Galil.h"
 
+void clearOutputs(Galil* g);
+int testingGalil();
+
 void clearOutputs(Galil* g) {
 	g->DigitalOutput(0);
 
@@ -116,5 +119,22 @@ int testingGalil() {
 	std::cout << "***All tests passed!!***" << std::endl;
 	Sleep(2000);
 	return 1;
+}
+
+int main(){
+
+	EmbeddedFunctions* g = new EmbeddedFunctions;
+	Galil* galil = new Galil(g, "192.168.0.120 -d");
+
+	while (1) {
+		galil->DigitalOutput(65535);
+		Sleep(500);
+		galil->DigitalOutput(0);
+		Sleep(500);
+	}
+
+	return G_NO_ERROR;
+
+
 }
 
