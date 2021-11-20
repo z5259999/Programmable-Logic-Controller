@@ -20,13 +20,13 @@ Galil::Galil() {
 	Functions = new EmbeddedFunctions;
 	g = 0;
 	setPoint = 0;
-	
-	for (int i = 0; i < 1024; i++) {
-		ReadBuffer[i] = {NULL};
-	}
 
 	for (int i = 0; i < 3; i++) {
 		ControlParameters[i] = 0;
+	}
+	
+	for (int i = 0; i < 1024; i++) {
+		ReadBuffer[i] = {NULL};
 	}
 
 }
@@ -39,15 +39,15 @@ Galil::Galil(EmbeddedFunctions* Funcs, GCStringIn address) {
 	Functions = Funcs;
 	setPoint = 0;
 	g = 0;
-	
-	for (int i = 0; i < 1024; i++) {
-		ReadBuffer[i] = {NULL};
-	}
 
 	for (int i = 0; i < 3; i++) {
 		ControlParameters[i] = 0;
 	}
 	
+	for (int i = 0; i < 1024; i++) {
+		ReadBuffer[i] = {NULL};
+	}
+
 	GReturn status = 0;
 	status = Functions->GOpen(address, &g);
 
@@ -93,7 +93,7 @@ void Galil::DigitalOutput(uint16_t value) {
 
 	// Uses all 16 bits, requires bit shifting to extract
 	else if ((value > UINT8_MAX) && (value <= UINT16_MAX)) {
-		int byteLower = value & 0xFF;
+		int byteLower = value & 0xff;
 		int byteHigher = value >> 8;
 		sprintf_s(Command, "OP %d, %d", byteLower, byteHigher);
 	}
