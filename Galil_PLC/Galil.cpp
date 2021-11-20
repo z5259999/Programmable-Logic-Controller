@@ -129,7 +129,13 @@ void Galil::DigitalBitOutput(bool val, uint8_t bit) {
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 
-	sprintf_s(Command, "OP %d, %d", bit, val);
+	if (val == 0) {
+		sprintf_s(Command, "CB %d;", bit);
+	}
+	else {
+		sprintf_s(Command, "SB %d;", bit);
+	}
+
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 }
 
