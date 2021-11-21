@@ -130,10 +130,10 @@ void Galil::DigitalBitOutput(bool val, uint8_t bit) {
 	ReadBuffer[0] = {NULL};
 
 	if (val == 0) {
-		sprintf_s(Command, "CB %d;", bit);
+		sprintf_s(Command, "CB %d", bit);
 	}
 	else {
-		sprintf_s(Command, "SB %d;", bit);
+		sprintf_s(Command, "SB %d", bit);
 	}
 
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
@@ -202,7 +202,7 @@ bool Galil::DigitalBitInput(uint8_t bit) {
 	ReadBuffer[0] = {NULL};
 	int value = 0;
 
-	sprintf_s(Command, "MG @IN[%d];", bit);
+	sprintf_s(Command, "MG @IN[%d]", bit);
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 
 	value = stoi(std::string(ReadBuffer));
@@ -268,7 +268,7 @@ void Galil::AnalogInputRange(uint8_t channel, uint8_t range) {
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 
-	sprintf_s(Command, "AQ %d,%d;", channel, range);
+	sprintf_s(Command, "AQ %d,%d", channel, range);
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 
 }
@@ -282,7 +282,7 @@ void Galil::WriteEncoder() {
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 	
-	sprintf_s(Command, "WE 0,0;");
+	sprintf_s(Command, "WE 0,0");
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 
 }
