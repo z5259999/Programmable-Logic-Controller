@@ -314,3 +314,23 @@ void Galil::setKi(double gain) {
 void Galil::setKd(double gain) {
 	ControlParameters[2] = gain;
 }
+
+std::ostream& operator<<(std::ostream& output, Galil& galil) {
+	
+	GCon g = galil.g;
+	
+	char ReadBuffer[1024];
+	std::string* Version;
+	std::string* Info;
+
+	GVersion(ReadBuffer, sizeof(ReadBuffer));
+	Version = new std::string(ReadBuffer);
+
+	GInfo(g, ReadBuffer, sizeof(ReadBuffer));
+	Info = new std::string(ReadBuffer);
+
+	std::cout << Info << std::endl;
+	output << Info << std::endl << std::endl << Version << std::endl << std::endl << std::endl;
+
+	return output;
+}
