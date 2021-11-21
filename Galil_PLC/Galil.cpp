@@ -112,11 +112,11 @@ void Galil::DigitalByteOutput(bool bank, uint8_t value) {
 
 	// low
 	if (bank == 0) {
-		sprintf_s(Command, "OP %d", value);
+		sprintf_s(Command, "OP %d, 0", value);
 	}
 	// high
 	else {
-		sprintf_s(Command, "OP 0, %d", value);
+		sprintf_s(Command, "OP , %d", value);
 	}
 
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
@@ -278,6 +278,7 @@ void Galil::AnalogInputRange(uint8_t channel, uint8_t range) {
 
 void Galil::WriteEncoder() {
 
+	// Manually Set the encoder value to zero
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 	
@@ -287,6 +288,8 @@ void Galil::WriteEncoder() {
 }
 
 int Galil::ReadEncoder() {
+
+	// Read from Encoder
 
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
@@ -300,36 +303,42 @@ int Galil::ReadEncoder() {
 }
 
 void Galil::setSetPoint(int s) {
+	// Set the desired setpoint for control loops, counts or counts/sec
 	setPoint = s;
 }
 
 void Galil::setKp(double gain) {
+	// Set the proportional gain of the controller used in controlLoop()
 	ControlParameters[0] = gain;
 }
 
 void Galil::setKi(double gain) {
+	// Set the integral gain of the controller used in controlLoop()
 	ControlParameters[1] = gain;
 }
 
 void Galil::setKd(double gain) {
+	// Set the derivative gain of the controller used in controlLoop()
 	ControlParameters[2] = gain;
 }
 
 std::ostream& operator<<(std::ostream& output, Galil& galil) {
 	
+	// Operator overload for '<<' operator. So the user can say cout << Galil; This function should print out the
+	// output of GInfo and GVersion, with two newLines after each.
+
 	GCon g = galil.g;
 	
 	char ReadBuffer[1024];
-	std::string* Version;
-	std::string* Info;
+	std::string Version;
+	std::string Info;
 
 	GVersion(ReadBuffer, sizeof(ReadBuffer));
-	Version = new std::string(ReadBuffer);
+	Version = std::string(ReadBuffer);
 
 	GInfo(g, ReadBuffer, sizeof(ReadBuffer));
-	Info = new std::string(ReadBuffer);
+	Info = std::string(ReadBuffer);
 
-	std::cout << Info << std::endl;
 	output << Info << std::endl << std::endl << Version << std::endl << std::endl << std::endl;
 
 	return output;

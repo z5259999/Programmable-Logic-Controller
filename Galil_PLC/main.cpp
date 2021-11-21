@@ -123,10 +123,11 @@ int testingGalil() {
 
 int main(){
 
-	//EmbeddedFunctions* g = new EmbeddedFunctions;
-	//Galil* galil = new Galil(g, "192.168.0.120 -d");
+	EmbeddedFunctions* g = new EmbeddedFunctions;
+	Galil* galil = new Galil(g, "192.168.0.120 -d");
 
-	testingGalil();
+	std::cout << *galil;
+	//testingGalil();
 
 	while (1) {
 		
