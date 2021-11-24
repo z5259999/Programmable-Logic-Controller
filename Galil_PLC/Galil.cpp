@@ -48,9 +48,9 @@ Galil::Galil(EmbeddedFunctions* Funcs, GCStringIn address) {
 		ReadBuffer[i] = {NULL};
 	}
 
-	GReturn status = 0;
-	status = Functions->GOpen(address, &g);
+	Functions->GOpen(address, &g);
 
+	/*
 	// Check Connection Status
 	if (status == G_NO_ERROR) {
 		std::cout << "Connected!" << std::endl;
@@ -58,14 +58,16 @@ Galil::Galil(EmbeddedFunctions* Funcs, GCStringIn address) {
 	else {
 		std::cout << "Nope, Try Again!" << std::endl;
 	}
-
+	*/
 }
 
 Galil::~Galil() {
 	
 	// Default destructor. Deallocate memory and close Galil connection. NOT AUTOMARKED
 	
+	/*
 	std::cout << "Goodbye!" << std::endl;
+	*/
 
 	if (g) {
 		
@@ -268,7 +270,7 @@ void Galil::AnalogInputRange(uint8_t channel, uint8_t range) {
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 
-	sprintf_s(Command, "AQ %d,%d", channel, range);
+	sprintf_s(Command, "AQ %d, %d", channel, range);
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 
 }
@@ -279,10 +281,11 @@ void Galil::AnalogInputRange(uint8_t channel, uint8_t range) {
 void Galil::WriteEncoder() {
 
 	// Manually Set the encoder value to zero
+
 	char Command[128] = "";
 	ReadBuffer[0] = {NULL};
 	
-	sprintf_s(Command, "WE 0,0");
+	sprintf_s(Command, "WE 0, 0");
 	Functions->GCommand(g, Command, ReadBuffer, sizeof(ReadBuffer), 0);
 
 }
