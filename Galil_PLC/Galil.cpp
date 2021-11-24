@@ -342,7 +342,7 @@ std::ostream& operator<<(std::ostream& output, Galil& galil) {
 	GInfo(g, ReadBuffer, sizeof(ReadBuffer));
 	Info = std::string(ReadBuffer);
 
-	output << Info << std::endl << std::endl << Version << std::endl << std::endl << std::endl;
+	output << Info << std::endl << std::endl << Version << std::endl << std::endl;
 
 	return output;
 }
